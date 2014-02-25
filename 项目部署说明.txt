@@ -1,0 +1,9 @@
+1.导入数据库sql。
+先将之前的数据库删掉（如有重要数据，到处data即可）。
+然后新建database，名为Weibo,字符集选utf-8。
+把structure and data.sql全部复制到工具编辑栏中，全选F8运行。
+2.导入项目工程。
+删掉MyEclipse的工程文件，以及.metadata里webapp中的工程文件。
+再将工程import至MyEclipse，点run，发布运行。
+3.测试系统是否正常运行
+进行简单的输入输出测试，看系统是否正常运行。

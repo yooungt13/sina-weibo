@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+<!-- Action放在指定的包空间下定义  -->
+<package name="webRoot" extends="struts-default" namespace="/">	
+	
+	<interceptors>  
+       <interceptor name="loginvalidate"
+        class="weibo.interceptor.LoginInterceptor">
+       </interceptor>  
+       <!-- 拦截器栈 -->  
+       <interceptor-stack name="myStack">  
+            <interceptor-ref name="defaultStack" />  
+            <interceptor-ref name="loginvalidate" />  
+       </interceptor-stack>  
+    </interceptors>  
+
+	<default-interceptor-ref name="myStack"></default-interceptor-ref>
+	<global-results>     
+	    <result name="login" type="redirectAction">
+              <param name="actionName">initLogin</param>
+              <param name="namespace">/</param>
+        </result>
+	    <result name="error" type="redirect">/error.jsp</result>  
+	    <result name="input" type="redirect">/error.jsp</result>
+	</global-results> 
+	
+	<!-- 用户管理 -->
+	<action name="Login" class="weibo.action.LoginAction">
+		<result name="login" type="redirectAction">
+              <param name="actionName">initLogin</param>
+              <param name="namespace">/</param>
+        </result>
+		<result name="homePage" type="redirectAction">
+              <param name="actionName">Page</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+        <result name="manage" type="redirectAction">
+        	<param name="actionName">initManage</param>
+            <param name="namespace">/Admin</param>
+        </result>
+        <interceptor-ref name="defaultStack" /> 
+	</action>	
+	<action name="initLogin" class="weibo.action.LoginAction" method="initLogin">
+		<result name="success">/login.jsp</result>
+        <interceptor-ref name="defaultStack" /> 
+	</action>		
+	<action name="exitLogin" class="weibo.action.LoginAction" method="exitLogin">
+        <result name="success" type="redirectAction">
+              <param name="actionName">initLogin</param>
+              <param name="namespace">/</param> 
+        </result> 
+        <interceptor-ref name="defaultStack" />
+	</action>
+	<action name="refreshCount" class="weibo.action.LoginAction" method="refreshCount">
+	</action>
+	
+	<!-- 注册管理 -->
+	<action name="Regist" class="weibo.action.RegistAction">
+		<result name="error">/error.jsp</result>
+		<result name="success" type="redirectAction">
+              <param name="actionName">initLogin</param>
+              <param name="namespace">/</param>
+        </result>
+		<interceptor-ref name="defaultStack" />  		
+	</action>	
+	<action name="validateInfo" class="weibo.action.RegistAction" method="validateInfo">
+	<interceptor-ref name="defaultStack" /> 
+	</action>
+	<action name="validateNickName" class="weibo.action.RegistAction" method="validateNickName">
+	<interceptor-ref name="defaultStack" /> 
+	</action> 
+	<action name="checkCode" class="weibo.action.CheckCodeAction">
+		<result type="stream">
+			<param name="contentType">image/jpeg</param>
+			<param name="inputName">inputStream</param>
+		</result>
+		<interceptor-ref name="defaultStack" /> 
+	</action>
+	<action name="validateCheckcode" class="weibo.action.CheckCodeAction" method="validateCheckCode">
+	<interceptor-ref name="defaultStack" /> 
+	</action>
+	
+	<!-- 翻页管理 -->
+	<action name="Page" class="weibo.action.PageAction">
+		<result name="homePage">/homePage.jsp</result>
+	</action>
+	<action name="myProfPage" class="weibo.action.PageAction" method="myProfPage">
+		<result name="myProfile">/MyBlog/profile.jsp</result>
+	</action>
+	<action name="commentsList" class="weibo.action.PageAction" method="commentsList">
+		<result name="comments">/MyBlog/comments.jsp</result>
+	</action>
+	<action name="showCommentsList" class="weibo.action.PageAction" method="showCommentsList">
+	</action>
+	<action name="collectionList" class="weibo.action.PageAction" method="collectionList">
+		<result name="favors">/MyBlog/favors.jsp</result>
+	</action>
+	<action name="atMeList" class="weibo.action.PageAction" method="atMeList">
+		<result name="profOfAtMe">/MyBlog/profOfAtMe.jsp</result>
+	</action>
+	<action name="atMeComList" class="weibo.action.PageAction" method="atMeComList">
+		<result name="profOfAtComment">/MyBlog/profOfAtComment.jsp</result>
+	</action>			
+	<action name="msgList" class="weibo.action.PageAction" method="msgList">
+		<result name="messages">/MyBlog/messages.jsp</result>
+	</action>	
+	<action name="frommsgList" class="weibo.action.PageAction" method="frommsgList">
+		<result name="frommessages">/MyBlog/frommessages.jsp</result>
+	</action>	
+	<action name="systemList" class="weibo.action.PageAction" method="systemList">
+		<result name="systemmessages">/MyBlog/mynotice.jsp</result>
+	</action>
+	
+	<!-- 微博管理 -->	
+	<action name="Profile" class="weibo.action.ProfAction">
+		<result name="homePage" type="redirectAction">
+              <param name="actionName">Page</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+	</action>	
+	<action name="deleteProf" class="weibo.action.ProfAction" method="deleteProf">
+		<result name="myProfile" type="redirectAction">
+              <param name="actionName">myProfPage</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+	</action>
+	
+	<!-- 评论管理 -->	
+	<action name="initComments" class="weibo.action.CommentAction"></action>
+	<action name="showComments" class="weibo.action.CommentAction" method="showComments"></action>	
+	<action name="replyComment" class="weibo.action.CommentAction" method="replyComment"></action>
+	<action name="makeComment" class="weibo.action.CommentAction" method="makeComment"></action>
+	<action name="deleteComment" class="weibo.action.CommentAction" method="deleteComment"></action>
+	<action name="deleteSelected" class="weibo.action.CommentAction" method="deleteSelected"></action>
+	<action name="makeComReply" class="weibo.action.CommentAction" method="makeComReply">
+		<result name="profileContent" type="redirectAction">
+			  <param name="actionName">profileContent</param>
+              <param name="profId">${com.profile.profId}</param>
+              <param name="namespace">/MyBlog</param>
+		</result>
+	</action>
+		
+</package>
+
+<package name="myBlog" extends="struts-default" namespace="/MyBlog">
+	
+	<interceptors>  
+       <interceptor name="loginvalidate"
+        class="weibo.interceptor.LoginInterceptor">
+       </interceptor>  
+       <!-- 拦截器栈 -->  
+       <interceptor-stack name="myStack">  
+            <interceptor-ref name="defaultStack" />  
+            <interceptor-ref name="loginvalidate" />  
+       </interceptor-stack>  
+    </interceptors>  
+
+	<default-interceptor-ref name="myStack"></default-interceptor-ref>
+	<global-results>     
+	    <result name="login" type="redirectAction">
+              <param name="actionName">initLogin</param>
+              <param name="namespace">/</param>
+        </result>
+	    <result name="error" type="redirect">/error.jsp</result>  
+	    <result name="input" type="redirect">/error.jsp</result>
+	</global-results> 
+	
+	<!-- 关注、粉丝管理  -->
+	<action name="myFanspage" class="weibo.action.PageAction" method="fans">
+		<result name="fans">fans.jsp</result>
+	</action>
+	<action name="showfans" class="weibo.action.FansAction">
+		<result name="Myfans" type="redirectAction">
+              <param name="actionName">FansPage</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/MyBlog</param>
+        </result>
+	</action>
+	
+	<action name="FansPage" class="weibo.action.PageAction" method="fansLis">
+		<result name="fans">fans.jsp</result>
+	</action>
+	<action name="showfollow" class="weibo.action.FansAction">
+		<result name="Myfollow" type="redirectAction">
+              <param name="actionName">myFollowpage</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/MyBlog</param>
+        </result>
+	</action>
+	<action name="SaveAllfansId" class="weibo.action.FansAction" method="saveAllfans">
+	<result name="deleteFans" type="redirectAction">
+              <param name="actionName">FansPage</param>
+              <param name="pageNumber">${pageNumber}</param>
+              <param name="listType">1</param>
+              <param name="namespace">/MyBlog</param>
+        </result>
+	</action>
+	<action name="SavegroupId" class="weibo.action.FansAction" method="saveGroupId">
+	<result name="getgroupId" type="redirectAction">
+              <param name="actionName">myFollowpage</param>
+              <param name="pageNumber">${pageNumber}</param>
+              <param name="listType">1</param>
+              <param name="namespace">/MyBlog</param>
+        </result>
+	</action>
+	<action name="showFansLt" class="weibo.action.PageAction" method="showFansLts">
+	</action>
+	<action name="showFollowList" class="weibo.action.PageAction" method="showFollowList">
+	</action>
+	<action name="myFollowpage" class="weibo.action.PageAction" method="follow">
+		<result name="follow">follow.jsp</result>
+	</action>
+	<action name="FollowPage" class="weibo.action.PageAction" method="follow">
+		<result name="follow">follow.jsp</result>
+	</action>
+	<action name="addFansId" class="weibo.action.FansAction" method="addfansId">
+		<result name="homePage" type="redirectAction">
+       		<param name="actionName">Page</param>
+        	<param name="pageNumber">1</param>
+        	<param name="namespace">/</param>
+        </result>
+	</action>
+	<action name="deleteFansId"  class="weibo.action.FansAction" method="deletefansId">
+	<result name="deleteFans" type="redirectAction">
+              <param name="actionName">FansPage</param>
+              <param name="pageNumber">${pageNumber}</param>
+              <param name="listType">1</param>
+              <param name="namespace">/MyBlog</param>
+        </result>
+	</action>
+	<action name="deleteFollowId"  class="weibo.action.FansAction" method="deletefollowId">
+	<result name="deleteFollow" type="redirectAction">
+              <param name="actionName">FollowPage</param>
+              <param name="pageNumber">${pageNumber}</param>
+              <param name="listType">1</param>
+              <param name="namespace">/MyBlog</param>
+        </result>
+	</action>
+	
+	<!-- 私信管理 -->
+	<action name="Message" class="weibo.action.MessageAction">
+		<result name="message" type="redirectAction">
+              <param name="actionName">msgList</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+              </result>
+	</action>
+	<action name="Msglist" class="weibo.action.MessageAction" method="msglist">
+		<result name="messages">/messages.jsp</result>
+	</action>
+	<action name="Frommsglist" class="weibo.action.MessageAction" method="frommsglist">
+		<result name="frommessage">/frommessages.jsp</result>
+	</action>
+	<action name="fmsgRemove" class="weibo.action.MessageAction" method="fmsgRemove" >
+		<result name="fmsgremoves" type="redirectAction" >
+              <param name="actionName">frommsgList</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+	</action>
+	<action name="msgRemove" class="weibo.action.MessageAction" method="msgRemove" >
+		<result name="msgremoves" type="redirectAction" >
+              <param name="actionName">msgList</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+	</action>	
+	<action name="smsgRemove" class="weibo.action.MessageAction" method="smsgRemove" >
+		<result name="smsgremoves" type="redirectAction" >
+              <param name="actionName">systemList</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+	</action>
+	<action name="validatemsgtoName" class="weibo.action.MessageAction" method="validatemsgtoName">
+	</action> 
+
+
+	<action name="Noticelist" class="weibo.action.MessageAction" method="noticelist">
+		<result name="noticelist">/MyBlog/mynotice.jsp</result>
+	</action>
+	
+	<!-- 收藏管理  -->
+	<action name="addCollection" class="weibo.action.CollectAction" method="addCollection"></action>
+	<action name="deleteCollection" class="weibo.action.CollectAction" method="deleteCollection">
+		<result name="myFavor" type="redirectAction">
+              <param name="actionName">collectionList</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+	</action>	
+	
+	<!-- 转发管理  -->
+	<action name="addTransmit" class="weibo.action.TransmitAction" method="addTransmit">
+		<result name="homePage" type="redirectAction">
+              <param name="actionName">Page</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+	</action>
+	<action name="initTransmit" class="weibo.action.TransmitAction" method="initTransmit"></action>
+	
+	<!-- 搜索管理 -->
+	<action name="initSearch" class="weibo.action.SearchAction" method="initSearch">
+		<result name="findFriends">/MyBlog/findFriends.jsp</result>
+	</action>
+	<action name="*Search" class="weibo.action.SearchAction" method="{1}">
+	    <result name="{1}Search">/MyBlog/{1}Search.jsp</result>
+	</action>
+		<action name="profileContent" class="weibo.action.ProfAction" method="showProfile">
+		<result name="showProfile">/MyBlog/profileContent.jsp</result>
+	</action>
+</package>
+
+<constant name="struts.custom.i18n.resources" value="message">
+</constant>
+<constant name="struts.multipart.saveDir" value="c:\">
+</constant>
+
+<package name="setting" extends="struts-default" namespace="/Setting">
+	
+	<interceptors>  
+       <interceptor name="loginvalidate" class="weibo.interceptor.LoginInterceptor"></interceptor>  
+       <!-- 拦截器栈 -->  
+       <interceptor-stack name="myStack">  
+            <interceptor-ref name="defaultStack" />  
+            <interceptor-ref name="loginvalidate" />  
+       </interceptor-stack>  
+    </interceptors>  
+
+	<default-interceptor-ref name="myStack"></default-interceptor-ref>
+	<global-results>     
+	    <result name="login" type="redirectAction">
+              <param name="actionName">initLogin</param>
+              <param name="namespace">/</param>
+        </result>
+	    <result name="error" type="redirect">/error.jsp</result>  
+	    <result name="input" type="redirect">/error.jsp</result>
+	</global-results>
+	
+	<!-- 个人信息管理 -->
+	<action name="Setting" class="weibo.action.SettingAction">
+		<result name="error">/error.jsp</result>
+		<result name="success">/Setting/user.jsp</result>
+	</action>
+	<action name="updateUser" class="weibo.action.SettingAction" method="updateUser">
+		<result name="error">/error.jsp</result>
+		<result name="success">/Setting/user.jsp</result>
+	</action>	
+	<action name="updatePassword" class="weibo.action.SettingAction" method="updatePassword">
+		<result name="error">/error.jsp</result>
+		<result name="success">/Setting/editpassword.jsp</result>
+	</action> 
+	<action name="saveEducationinfo" class="weibo.action.SettingAction" method="saveEducationinfo">
+		<result name="error">/error.jsp</result>
+		<result name="success">/Setting/educationinfo.jsp</result>
+	</action>
+	<action name="saveWorkinfo" class="weibo.action.SettingAction" method="saveWorkinfo">
+		<result name="error">/error.jsp</result>
+		<result name="success">/Setting/workinfo.jsp</result>
+	</action>
+	<action name="Tag" class="weibo.action.SettingAction" method="Tag">
+		<result name="error">/error.jsp</result>
+		<result name="success">/Setting/tag.jsp</result>
+	</action>
+	<action name="powerSetting" class="weibo.action.SettingAction" method="powerSetting">
+		<result name="error">/error.jsp</result>
+		<result name="success">/Setting/privacy.jsp</result>
+	</action>
+	<action name="upload" class="weibo.action.UploadAction" method="upload" >
+		<result name="success">/Setting/myface.jsp</result>
+	</action> 
+
+	<action name="validateNickName" class="weibo.action.SettingAction" method="validateNickName">
+	</action>
+	<action name="validateOldPassword" class="weibo.action.SettingAction" method="validateOldPassword">
+	</action> 
+</package>
+
+<package name="others" extends="struts-default" namespace="/Others">
+	<interceptors>  
+       <interceptor name="loginvalidate"
+        class="weibo.interceptor.LoginInterceptor">
+       </interceptor>  
+       <!-- 拦截器栈 -->  
+       <interceptor-stack name="myStack">  
+            <interceptor-ref name="defaultStack" />  
+            <interceptor-ref name="loginvalidate" />  
+       </interceptor-stack>  
+    </interceptors>  
+
+	<default-interceptor-ref name="myStack"></default-interceptor-ref>
+	<global-results>     
+	    <result name="login" type="redirectAction">
+              <param name="actionName">initLogin</param>
+              <param name="namespace">/</param>
+        </result>
+	    <result name="error" type="redirect">/error.jsp</result>  
+	    <result name="input" type="redirect">/error.jsp</result>
+	</global-results>
+	
+	<action name="others*" class="weibo.action.OthersAction" method="{1}">
+	    <result name="success">/Others/others{1}.jsp</result>
+	    <result name="myInfo">/MyBlog/myInfomationPage.jsp</result>
+	    <result name="myFollow">/MyBlog/follow.jsp</result>
+	    <result name="myFans">/MyBlog/fans.jsp</result>
+	    <result name="myProfile" type="redirectAction">
+              <param name="actionName">myProfPage</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/</param>
+        </result>
+	</action>
+	<action name="addOthersFansId" class="weibo.action.OthersAction" method="addOthersFansId">
+	</action>
+</package>
+
+<package name="manage" extends="struts-default" namespace="/Admin">
+	<interceptors>  
+       <interceptor name="mgrControl"
+        class="weibo.interceptor.ManageInterceptor">
+       </interceptor>  
+       <!-- 拦截器栈 -->  
+       <interceptor-stack name="myStack">  
+            <interceptor-ref name="defaultStack" />  
+            <interceptor-ref name="mgrControl" />  
+       </interceptor-stack>  
+    </interceptors>  
+
+	<default-interceptor-ref name="myStack"></default-interceptor-ref>
+	<global-results>     
+	    <result name="login" type="redirectAction">
+        	<param name="actionName">initLogin</param>
+        	<param name="namespace">/</param>
+        </result>
+	    <result name="error" type="redirect">/error.jsp</result>  
+	    <result name="input" type="redirect">/error.jsp</result>  
+	</global-results> 
+
+	<action name="initManage" class="weibo.action.ManageAction" method="initManage">
+	    <result name="success">/Admin/manage.jsp</result>
+	    <result name="userSearch">/Admin/m_searchByUser.jsp</result>
+	    <result name="weiboSearch">/Admin/m_searchByWeibo.jsp</result>	    
+	</action>
+	<action name="userSearch" class="weibo.action.ManageAction" method="userSearch">
+	    <result name="userSearch">/Admin/m_searchByUser.jsp</result>
+	</action>
+	<action name="weiboSearch" class="weibo.action.ManageAction" method="weiboSearch">
+	    <result name="weiboSearch">/Admin/m_searchByWeibo.jsp</result>	    
+	</action>
+	
+	<action name="deleteWeibo" class="weibo.action.ManageAction" method="deleteWeibo">
+		<result name="weiboSearch" type="chain">
+              <param name="actionName">weiboSearch</param>
+              <param name="pageNumber">1</param>
+              <param name="profContent">${profContent}</param>
+              <param name="namespace">/Admin</param>
+        </result>
+	</action>
+	
+	<action name="*User" class="weibo.action.ManageAction" method="{1}User">
+		<result name="userSearch" type="chain">
+              <param name="actionName">userSearch</param>
+              <param name="pageNumber">1</param>
+              <param name="nickName">${nickName}</param>
+              <param name="namespace">/Admin</param>
+        </result>
+	</action>
+	
+	<action name="getPwd" class="weibo.action.ManageAction" method="getPwd">
+		<result name="getPwd">/Admin/getPwd.jsp</result>
+		<result name="updatePwd">/Admin/updatePwd.jsp</result>
+		<interceptor-ref name="defaultStack" />
+	</action>
+	
+	<action name="updatePwd" class="weibo.action.ManageAction" method="updatePwd">
+		<result name="updatePwd">/Admin/updatePwd.jsp</result>
+		<result name="getPwd">/Admin/getPwd.jsp</result>
+		<interceptor-ref name="defaultStack" />
+	</action>
+	
+	<action name="confirmUpdatePwd" class="weibo.action.ManageAction" method="confirmUpdatePwd">
+		<interceptor-ref name="defaultStack" />
+	</action>
+		<action name="sendnotice" class="weibo.action.ManageAction" method="sendnotice">
+			<result name="notice" type="chain">
+              <param name="actionName">noticeList</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/Admin</param>
+        </result>
+	</action>
+	<action name="noticeList" class="weibo.action.PageAction" method="noticeList">
+		<result name="noticemessages">/Admin/notice.jsp</result>
+	</action>
+	<action name="sendallnotice" class="weibo.action.ManageAction" method="sendallnotice">
+		<result name="allnotice" type="chain">
+              <param name="actionName">noticeList</param>
+              <param name="pageNumber">1</param>
+              <param name="namespace">/Admin</param>
+        </result>
+        
+	</action>
+		<action name="nvalidatemsgtoName" class="weibo.action.MessageAction" method="nvalidatemsgtoName">
+	</action> 
+</package>
+
+
+
+
+</struts> 

@@ -1,0 +1,204 @@
+.interPer {
+	margin-bottom: 8px;
+	zoom: 1;
+}
+.interPer_row,.interPerInp_row {
+	float: left;
+}
+.interPer dt,.interPer_row dt,.interPerInp dt,.interPerInp_row dt {
+	float: left;
+}
+.interPer dd,.interPer_row dd,.interPerInp dd,.interPerInp_row dd {
+	display: block;
+}
+.interPer dt,.interPer_row dt {
+	width: 50px;
+	margin: 3px 6px 0 0;
+	_margin: 3px 5px 0 0;
+}
+.interPer dt a,.interPer_row dt a {
+	display: block;
+}
+.interPer dd,.interPer_row dd {
+	line-height: 18px;
+	margin-left: 50px;
+	width: 113px;
+	_width: 111px;
+}
+.interPer dd p.name,.interPer_row dd p.name,.interPerInp dd p.name,.interPerInp_row dd p.name {
+	height: 18px;
+	line-height: 18px;
+	overflow: hidden;
+	zoom: 1;
+}
+.interPer dd p.fllow,.interPer_row dd p.fllow,.interPerInp dd p.fllow,.interPerInp_row dd p.fllow {
+	height: 20px;
+	line-height: 19px;
+	overflow: hidden;
+	zoom: 1;
+}
+.interPer dd p.info,.interPer_row dd p.info,.interPerInp dd p.info,.interPerInp_row dd p.info {
+	height: 19px;
+	line-height: 19px;
+	overflow: hidden;
+	zoom: 1;
+}
+.interPer dd p.btn,.interPer_row dd p.btn,.interPerInp dd p.btn,.interPerInp_row dd p.btn {
+	margin-top: 3px;
+}
+.interPer dd .nointer,.interPer_row dd .nointer,.interPerInp dd .nointer,.interPerInp_row dd .nointer {
+	padding: 0;
+	padding-top: 2px\9;
+	visibility: hidden;
+}
+.interPerHover dd .nointer,.interPer_rowHover dd .nointer {
+	visibility: visible;
+}
+.interPer .mutual_friend {
+	margin-left: 0;
+	width: auto;
+	height: auto;
+}
+.interPer .mf_cont {
+	padding: 5px 8px 6px 10px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	height: auto;
+	word-wrap: break-word;
+}
+.interPer a.W_moreup .more,.interPer a.W_moredown .more {
+	margin: 8px 0 7px 3px;
+	vertical-align: middle;
+}
+.interPer .close {
+	height: 14px;
+	position: absolute;
+	top: 2px;
+	left: 155px;
+}
+.interPer .hover {
+	visibility: hidden;
+	_visibility: visible;
+}
+.interPer: hover .hover {
+	visibility: visible;
+}
+.interPerInp dd,.interPerInp_row dd {
+	width: 106px;
+	line-height: 18px;
+	height: 64px;
+}
+.interPerInp dt,.interPerInp_row dt {
+	margin: 2px 10px 7px 0;
+	margin-top: 0\9;
+}
+.interPerInp dt a,.interPerInp_row dt a {
+	display: block;
+	width: 50px;
+	height: 50px;
+}
+.interPerInp dt a img,.interPerInp_row dt a img {
+	height: 50px;
+	width: 50px;
+}
+.interPerInp dt a .checkbimg,.interPerInp_row dt a .checkbimg {
+	margin: -14px 0 0;
+	position: relative;
+	z-index: 3;
+	*position: static;
+	display: block;
+	border: none;
+	width: 14px;
+	height: 14px;
+	background: url('../../../images/connect/checkbox.png?id=1321862528265') 0 -14px no-repeat;
+	overflow: hidden;
+}
+.interPerInp dt a.current .checkbimg,.interPerInp_row dt a.current .checkbimg {
+	background: url('../../../images/connect/checkbox.png?id=1321862528265') 0 0 no-repeat;
+}
+.interPer_row .star {
+	height: 16px;
+	padding-top: 3px;
+}
+.interPer_row .W_close_color {
+	float: right;
+}
+.interPer_row .hover {
+	visibility: hidden;
+	_visibility: visible;
+}
+.interPer_row: hover .hover {
+	visibility: visible;
+}
+.interPer .pop_users {
+	margin-left: 0;
+	width: auto;
+	height: auto;
+}
+.interPer .pop_users .titletxt {
+	padding-bottom: 4px;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+}
+.interPer .pop_users .contxt,.interPer .pop_users .pop_list {
+	padding-top: 4px;
+}
+.interPer .pop_users .pop_list .W_linkdot {
+	margin: 6px 3px 0 0;
+}
+.interPer .pop_users .arrow {
+	width: 25px;
+	margin: 0 0 0 80px;
+	height: 9px;
+	overflow: hidden;
+}
+.interPer .pop_users .arrow span {
+	font-family: "宋体";
+	overflow: hidden;
+	line-height: 21px;
+	font-size: 25px;
+	height: 11px;
+	width: 22px;
+}
+.interPer .mutual_friend .W_bubtips .W_bgcolor_arrow b {
+	font-family: "宋体";
+	overflow: hidden;
+	line-height: 21px;
+	font-size: 12px;
+	height: 11px;
+	width: 22px;
+}
+#js_style_css_module_list_person_connect {
+	height: 42px;
+}
+
+a.addFollow,a.addFollow:link,a.addFollow:visited
+{
+	width:56px;
+	height:18px;
+	line-height:18px;
+	*line-height:20px;
+	text-align:left;
+	display:block;
+	background:#e3ffd5;
+	border:1px solid #cff3bb;
+	overflow:hidden;
+	cursor:pointer;
+}
+a.addFollow:hover
+{
+	background:#4fbe4f;
+	border:1px solid #393;
+	color:#fff;
+	text-decoration:none;
+}
+a.addFollow .addnew
+{
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	cursor:pointer;
+	margin:0 1px 0 3px;
+	float:left;
+	line-height:18px;
+}

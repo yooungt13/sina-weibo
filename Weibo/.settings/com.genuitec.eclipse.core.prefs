@@ -1,0 +1,5 @@
+#Thu Dec 15 11:50:53 CST 2011
+eclipse.preferences.version=1
+validator.Checked=WebRoot,src/applicationContext.xml
+validator.Revalidate=true
+validator.Unchecked=

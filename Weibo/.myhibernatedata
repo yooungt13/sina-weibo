@@ -1,0 +1,24 @@
+#MyEclipse Hibernate Properties
+#Mon Dec 19 23:09:58 CST 2011
+sessionFactoryName=weibo.hibernate.HibernateSessionFactory
+genBasicCompId=false
+profile=
+daoSFId=sessionFactory
+version=3.3
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=src/applicationContext.xml
+useJavaTypes=true
+keyGenerator=
+libInstallFolder=WebRoot/WEB-INF/lib
+addLibs2Project=true
+genVersionTag=false
+sessionFactoryId=sessionFactory
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=
+configFile=/Weibo/src/applicationContext.xml
+createConfigFile=false
+addLibs2Classpath=true
