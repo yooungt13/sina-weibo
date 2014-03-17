@@ -1,5 +1,4 @@
-__J2EE高仿新浪微博完整项目（包括JSP、SQL、后台代码）,仅供学习使用。__    
-    
+  
 
 1.项目概述
 ==========
@@ -29,12 +28,12 @@ c)通过微博或昵称找到用户，发布相应的系统通知。
 部署步骤（可见文档：[链接](https://github.com/yooungt13/sina-weibo/blob/master/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E8%AF%B4%E6%98%8E.txt)）
 ---------------
 
-__a)导入数据库sql__
+__a)导入数据库sql__    
 先将之前的数据库删掉（如有重要数据，到处data即可）。    
 然后新建database，名为Weibo,字符集选utf-8。    
 把structure and data.sql全部复制到工具编辑栏中，全选F8运行。    
 
-__b)导入项目工程__
+__b)导入项目工程__    
 删掉MyEclipse的工程文件，以及.metadata里webapp中的工程文件。    
 再将工程import至MyEclipse，点run，发布运行。    
 
